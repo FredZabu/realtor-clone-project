@@ -1,8 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, Profile, Offers, SignIn, SignUp, ForgotPassword } from './pages/index.js';
+import { Header } from './components/index.js'
 function App() {
   return (
     <>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
