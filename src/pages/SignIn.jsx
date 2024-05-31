@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible }from "react-icons/ai";
 import OAuth from "../components/OAuth";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { db } from '../firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 function SignIn() {
   const [showPassword , setShowPassword] = useState(false)
@@ -10,11 +13,28 @@ function SignIn() {
     password: ""
   });
   const { email, password } = formData;
+  const navigate = useNavigate();
   function onChange(e) {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }))
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault()
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log(userCredential.user);
+      if (userCredential.user) {
+        toast.success("login success!")
+         navigate("/")
+      }
+    } catch (error) {
+      toast.error("Failed")
+      console.log(error);
+    }
   }
   return (
     <section>
@@ -24,7 +44,7 @@ function SignIn() {
           <img src="https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=773&q=80" alt="key to house" srcset="" className='w-full rounded-2xl'/>
         </div>
         <div className='w-full md:w-[67%] lg:w-[40%] lg:ml-20'>
-          <form action="" >
+          <form action="" onSubmit={onSubmit}>
             <input className='w-full px-4 py-2 text-xl text-gray-700 bg-white  border-gray-300 rounded transition ease-in-out mb-6' type="email" name="" id="email" value={email} onChange={onChange} placeholder='Email address'/>
              
             <div   className='relative mb-6'>

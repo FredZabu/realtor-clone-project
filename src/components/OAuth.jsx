@@ -12,7 +12,7 @@ function OAuth() {
       try {
             // signing in the user
             const auth = getAuth();
-            const provider = GoogleAuthProvider();
+            const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             // checking whether the user exists in the database
@@ -28,6 +28,7 @@ function OAuth() {
                 navigate("/")
             }
         } catch (error) {
+            console.log(error);
             toast.error("Something went wrong")
         }
     }
