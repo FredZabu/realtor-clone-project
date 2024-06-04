@@ -10,9 +10,10 @@ function CreateListings() {
         furnished: false,
         address: "",
         description: "",
-        offer: true
+        offer: true,
+        regularPrice: "10"
     })
-    const { type, name, bedrooms, bathrooms, parking, furnished, address, description, offer } = formData;
+    const { type, name, bedrooms, bathrooms, parking, furnished, address, description, offer, regularPrice } = formData;
     function onChange() {
         
     }
@@ -62,7 +63,13 @@ function CreateListings() {
               <div className='flex items-center space-x-6 mb-6'>
                   <button type="button" id="offer" value={true} onClick={onChange} className={`px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${!offer? "bg-white text-black" : "bg-slate-600 text-white"}`}>Yes</button>
                   <button type="button" id="offer" value={false} onClick={onChange} className={`px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${!offer? "bg-white text-black":"bg-slate-600 text-white"}`}>No</button>                  
-              </div>               
+              </div>   
+              <div className="">
+                  <div className="">
+                      <p className="text-lg mt-6 font-semibold">Regular Price</p>
+                      <input type="number" name="" id="regularPrice" value={regularPrice} onChange={onChange} min="1" max="50" required className="w-full px-4 py-2 text-xl text-gray-700 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"/>
+                  </div>
+              </div>
           </form>
     </main>
   )
